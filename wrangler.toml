@@ -1,0 +1,3 @@
+name = "worker-name"
+compatibility_date = "2025-06-25"
+main = "dist/index.js" # 你的入口文件路径
