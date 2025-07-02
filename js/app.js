@@ -1212,13 +1212,13 @@ async function importConfigFromUrl() {
             });
             if (!response.ok) throw '获取配置文件失败';
 
-            // 验证响应内容类型
-            const contentType = response.headers.get('content-type');
-            if (!contentType || !contentType.includes('application/json')) {
+            // 尝试解析JSON内容（移除严格的Content-Type检查以提高兼容性）
+            let config;
+            try {
+                config = await response.json();
+            } catch (jsonError) {
                 throw '响应不是有效的JSON格式';
             }
-
-            const config = await response.json();
             if (config.name !== 'LibreTV-Settings') throw '配置文件格式不正确';
 
             // 验证哈希
